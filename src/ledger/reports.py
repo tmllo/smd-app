@@ -34,3 +34,9 @@ def spending_by_category(transactions: Iterable[Transaction]) -> dict[str, Decim
     spending = [t for t in transactions if is_spending(t)]
     totals = totals_by(spending, lambda t: t.category)
     return dict(sorted(totals.items(), key=lambda item: item[1]))
+
+
+def net_by_month(transactions: Iterable[Transaction]) -> dict[str, Decimal]:
+    """The total of each month (YYYY-MM), transfers included, sorted by month."""
+    totals = totals_by(transactions, lambda t: t.date.strftime("%Y-%m"))
+    return dict(sorted(totals.items()))
